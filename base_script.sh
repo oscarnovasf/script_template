@@ -24,6 +24,9 @@ START=$(date +%s)
 # Número mínimo de parámetros.
 NUM_PARAMS=1
 
+# Ubicación del script.
+BASEDIR=$(dirname "$0")
+
 
 ################################################################################
 # FUNCIONES.
@@ -32,7 +35,8 @@ NUM_PARAMS=1
 
 # Lee archivo de configuración.
 function load_env() {
-  if [ ! -f .env ]; then
+  ENV_FILE="${BASEDIR}/.env"
+  if [ ! -f "${ENV_FILE}" ]; then
     clear
     echo "
 -------------------------------------------------------------------------------
@@ -41,9 +45,10 @@ function load_env() {
     "
     exit 1
   else
-    source .env
+    source "$(echo ${ENV_FILE})"
   fi
 }
+
 # Muestra la cabecera de algunas respuestas del script.
 function show_header() {
   echo "
