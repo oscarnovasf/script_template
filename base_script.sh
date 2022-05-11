@@ -18,6 +18,10 @@
 # Cierro el script en caso de error.
 set -e
 
+# Colores.
+R="\e[0m"  # reset
+Y="\e[33m" # amarillo
+
 # Control de tiempo de ejecución.
 START=$(date +%s)
 
@@ -26,6 +30,9 @@ NUM_PARAMS=1
 
 # Ubicación del script.
 BASEDIR=$(dirname "$0")
+
+# Variables para almacenar los parámetros:
+PARAM_1=''
 
 
 ################################################################################
@@ -51,10 +58,10 @@ function load_env() {
 
 # Muestra la cabecera de algunas respuestas del script.
 function show_header() {
-  echo "
+  echo -e "
  +-----------------------------------------------------------------------------+
  |                                                                             |
- |                       OscarNovas.com - for developers                       |
+ |                       ${Y}OscarNovas.com - for developers${R}                       |
  +-----------------------------------------------------------------------------+
   "
 }
@@ -63,12 +70,12 @@ function show_header() {
 function show_usage() {
   clear
   show_header
-  echo "
+  echo -e "
     Sintaxis del script:
       $0 [argumentos]
 
     Lista de parámetros/argumentos aceptados:
-      -h / --help                  Muestra la ayuda del script.
+      ${Y}-h / --help${R}                  Muestra la ayuda del script.
 
   "
 }
@@ -107,14 +114,6 @@ function open_vscode() {
   fi
 }
 
-# Comprueba si se ha pasado el parámetro para mostrar la ayuda.
-function check_help_param() {
-  if [[ ( $* == "--help") || $* == "-h" ]]; then
-    show_usage
-    exit 0
-  fi
-}
-
 # Comprueba si el usuario que ejecuta el script es el super usuario.
 function check_su() {
   if [[ "$EUID" -ne 0 ]]; then
@@ -131,6 +130,30 @@ function check_num_params() {
   fi
 }
 
+# INFO: Modificar según los parámetros que necesite el script.
+# Comprueba si se ha pasado el parámetro para mostrar la ayuda.
+function get_params() {
+  while [ $# -gt 0 ]; do
+    case "$1" in
+
+      --param1=*)
+          PARAM_1="${1#*=}"
+          ;;
+
+      --help | -h)
+        show_usage
+        exit 0
+        ;;
+
+      *)
+        show_usage
+        exit 1
+    esac
+    # Elimino el argumento y paso al siguiente:
+    shift
+  done
+}
+
 
 ################################################################################
 # COMPROBACIONES PREVIAS.
@@ -139,12 +162,14 @@ function check_num_params() {
 
 check_su
 check_num_params "$@"
-check_help_param "$@"
 
 
 ################################################################################
 # CUERPO PRINCIPAL DEL SCRIPT.
 ################################################################################
 
+
+# Obtengo los posibles parámetros:
+get_params "$@"
 
 show_bye
