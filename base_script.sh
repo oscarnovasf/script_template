@@ -14,13 +14,14 @@
 # CONFIGURACIÓN DEL SCRIPT.
 ################################################################################
 
-
 # Cierro el script en caso de error.
 set -e
 
 # Colores.
-R="\e[0m"  # reset
-Y="\e[33m" # amarillo
+RESET="\033[0m"
+YELLOW="\033[0;33m"
+RED="\033[0;31m"
+GREEN="\033[0;32m"
 
 # Control de tiempo de ejecución.
 START=$(date +%s)
@@ -36,20 +37,22 @@ PARAM_1=''
 
 
 ################################################################################
-# FUNCIONES.
+# FUNCIONES AUXILIARES.
 ################################################################################
 
+# Simplemente imprime una lína por pantalla.
+function linea() {
+  echo '--------------------------------------------------------------------------------'
+}
 
 # Lee archivo de configuración.
 function load_env() {
   ENV_FILE="${BASEDIR}/.env"
   if [ ! -f "${ENV_FILE}" ]; then
     clear
-    echo "
--------------------------------------------------------------------------------
- No existe el archivo de variables de entorno (.env).
--------------------------------------------------------------------------------
-    "
+    linea
+    echo -e " ${RED}No existe el archivo de variables de entorno (.env).${RESET}"
+    linea
     exit 1
   else
     source "$(echo ${ENV_FILE})"
@@ -61,7 +64,7 @@ function show_header() {
   echo -e "
  +-----------------------------------------------------------------------------+
  |                                                                             |
- |                       ${Y}OscarNovas.com - for developers${R}                       |
+ |                       ${YELLOW}OscarNovas.com - for developers${RESET}                       |
  +-----------------------------------------------------------------------------+
   "
 }
@@ -75,7 +78,7 @@ function show_usage() {
       $0 [argumentos]
 
     Lista de parámetros/argumentos aceptados:
-      ${Y}-h / --help${R}                  Muestra la ayuda del script.
+      ${YELLOW}-h / --help${RESET}                  Muestra la ayuda del script.
 
   "
 }
@@ -87,10 +90,10 @@ function show_bye() {
   RUNTIME=$((END-START))
 
   clear
-  echo "
- Tiempo de ejecución: ${RUNTIME}s
--------------------------------------------------------------------------------
-  "
+  linea
+  echo -e " ${YELLOW}Tiempo de ejecución:${RESET} ${GREEN}${RUNTIME}s${RESET}"
+  linea
+  echo " "
   exit 0
 }
 
@@ -105,10 +108,9 @@ function open_vscode() {
     then
       code .
     else
-      echo '
- No se puede abrir el proyecto: No se encuentra VSCode.
--------------------------------------------------------------------------------
-'
+      echo " "
+      echo -e " ${RED}No se puede abrir el proyecto: No se encuentra VSCode.${RESET}"
+      linea
       exit 1
     fi
   fi
@@ -159,7 +161,6 @@ function get_params() {
 # COMPROBACIONES PREVIAS.
 ################################################################################
 
-
 check_su
 check_num_params "$@"
 
@@ -167,7 +168,6 @@ check_num_params "$@"
 ################################################################################
 # CUERPO PRINCIPAL DEL SCRIPT.
 ################################################################################
-
 
 # Obtengo los posibles parámetros:
 get_params "$@"

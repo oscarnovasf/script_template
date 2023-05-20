@@ -6,6 +6,14 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
   > Ver TODO.md
 
 ---
+* ## [v1.0.2] - 2023-05-19
+  > Documentación.
+
+  * #### Cambios:
+    - Mejora de la documentación en readme.md.
+    - Refactor del script para mejorar la lectura del código.
+
+---
 * ## [v1.0.1] - 2022-05-11
   > Nuevas funcionalidades.
 

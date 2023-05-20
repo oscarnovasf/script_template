@@ -21,21 +21,20 @@ Este proyecto es una plantilla base para generar nuevos scripts:
 
 ## Requisitos
 * Se necesita una versión de git superior a la 2.0.
-* Script para iniciar proyectos (no incluido)
 
 ---
 
 ## Instalación
 Esta plantilla está implementada para ser usada con el script
-`iniciar-proyecto.sh`
+[iniciar-proyecto.sh](https://github.com/oscarnovasf/iniciar-proyecto)
 
 ---
 ⌨️ con ❤️ por [Óscar Novás][mi-web] 😊
 
 [mi-web]: https://oscarnovas.com "for developers"
 
-[version]: v1.0.1
-[version-badge]: https://img.shields.io/badge/Versión-1.0.1-blue.svg
+[version]: v1.0.2
+[version-badge]: https://img.shields.io/badge/Versión-1.0.2-blue.svg
 
 [license]: LICENSE.md
 [license-badge]: https://img.shields.io/badge/Licencia-GPLv3+-green.svg "Leer la licencia"
