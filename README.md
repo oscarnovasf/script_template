@@ -33,8 +33,8 @@ Esta plantilla está implementada para ser usada con el script
 
 [mi-web]: https://oscarnovas.com "for developers"
 
-[version]: v1.0.2
-[version-badge]: https://img.shields.io/badge/Versión-1.0.2-blue.svg
+[version]: v1.0.3
+[version-badge]: https://img.shields.io/badge/Versión-1.0.3-blue.svg
 
 [license]: LICENSE.md
 [license-badge]: https://img.shields.io/badge/Licencia-GPLv3+-green.svg "Leer la licencia"

@@ -6,6 +6,13 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
   > Ver TODO.md
 
 ---
+* ## [v1.0.3] - 2023-09-17
+  > Mejoras.
+
+  * #### Cambios:
+    - Actualización de archivo tasks.json.
+
+---
 * ## [v1.0.2] - 2023-05-19
   > Documentación.
 
