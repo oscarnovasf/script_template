@@ -9,13 +9,13 @@
 #  @license   GNU/GPL v3+
 # ##############################################################################
 
-
-################################################################################
-# CONFIGURACIÓN DEL SCRIPT.
-################################################################################
-
 # Cierro el script en caso de error.
 set -e
+
+
+# ##############################################################################
+# VARIABLES AUXILIARES.
+# ##############################################################################
 
 # Colores.
 RESET="\033[0m"
@@ -23,24 +23,29 @@ YELLOW="\033[0;33m"
 RED="\033[0;31m"
 GREEN="\033[0;32m"
 
-# Control de tiempo de ejecución.
-START=$(date +%s)
-
-# Número mínimo de parámetros.
-NUM_PARAMS=1
-
 # Ubicación del script.
 BASEDIR=$(dirname "$0")
+
+# Control de tiempo de ejecución.
+START=$(date +%s)
 
 # Variables para almacenar los parámetros:
 PARAM_1=''
 
 
 ################################################################################
+# CONFIGURACIÓN DEL SCRIPT.
+################################################################################
+
+# Número mínimo de parámetros.
+NUM_PARAMS=1
+
+
+################################################################################
 # FUNCIONES AUXILIARES.
 ################################################################################
 
-# Simplemente imprime una lína por pantalla.
+# Simplemente imprime una línea por pantalla.
 function linea() {
   echo '--------------------------------------------------------------------------------'
 }
@@ -55,18 +60,18 @@ function load_env() {
     linea
     exit 1
   else
-    source "$(echo ${ENV_FILE})"
+    # shellcheck disable=SC1090
+    source "${ENV_FILE}"
   fi
 }
 
 # Muestra la cabecera de algunas respuestas del script.
 function show_header() {
-  echo -e "
- +-----------------------------------------------------------------------------+
- |                                                                             |
- |                       ${YELLOW}OscarNovas.com - for developers${RESET}                       |
- +-----------------------------------------------------------------------------+
-  "
+  linea
+  echo -e " ${GREEN}Descripción del SCRIPT.${RESET}"
+  echo -e " ${YELLOW}OscarNovas.com - for developers${RESET}"
+  linea
+  echo " "
 }
 
 # Muestra la ayuda del script.
@@ -78,7 +83,7 @@ function show_usage() {
       $0 [argumentos]
 
     Lista de parámetros/argumentos aceptados:
-      ${YELLOW}-h / --help${RESET}                  Muestra la ayuda del script.
+      ${YELLOW}-h|--help${RESET}                  Muestra la ayuda del script.
 
   "
 }
@@ -95,25 +100,6 @@ function show_bye() {
   linea
   echo " "
   exit 0
-}
-
-# Abre la carpeta actual en VSCode.
-function open_vscode() {
-  echo " "
-  read -r -p "¿Deseas abrir el proyecto en VSCode [n]?: " ABRIR_VSCODE
-  ABRIR_VSCODE=${ABRIR_VSCODE:-n}
-
-  if [ "$ABRIR_VSCODE" == "y" ]; then
-    if command -v code &> /dev/null
-    then
-      code .
-    else
-      echo " "
-      echo -e " ${RED}No se puede abrir el proyecto: No se encuentra VSCode.${RESET}"
-      linea
-      exit 1
-    fi
-  fi
 }
 
 # Comprueba si el usuario que ejecuta el script es el super usuario.
@@ -156,12 +142,24 @@ function get_params() {
   done
 }
 
+# INFO: Es una alternativa a la función anterior si no se necesitan otros parámetros.
+# Comprueba si se ha pasado el parámetro para mostrar la ayuda.
+function check_help_param() {
+  if [[ ( $* == "--help") || $* == "-h" ]]; then
+    show_usage
+    exit 0
+  fi
+}
+
 
 ################################################################################
 # COMPROBACIONES PREVIAS.
 ################################################################################
 
 check_su
+
+# Compruebo parámetros del script.
+check_help_param "$@"
 check_num_params "$@"
 
 

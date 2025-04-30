@@ -6,6 +6,20 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
   > Ver TODO.md
 
 ---
+* ## [v1.1.0] - 2025-04-30
+  > Mejoras.
+
+  * #### Cambios:
+    - Actualización de archivo tasks.json.
+    - Añadida función para encontrar el parámetro de ayuda (--help|-h)
+
+  * #### Eliminado:
+    - Función para abrir VSCode.
+
+  * #### Errores:
+    - Items vacíos en CHANGELOG.md
+
+---
 * ## [v1.0.3] - 2023-09-17
   > Mejoras.
 
@@ -30,10 +44,6 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
 
   * #### Cambios:
     - Mejora en la función de comprobación de existencia del archivo .env.
-
-  * #### Errores:
-
-  * #### Eliminado:
 
 ---
 * ## [v1.0.0] - 2022-04-10
