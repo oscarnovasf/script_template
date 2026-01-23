@@ -6,6 +6,13 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
   > Ver TODO.md
 
 ---
+* ## [v1.2.0] - 2026-01-23
+  > Mejoras.
+
+  * #### Añadido:
+    - Script para capturar Ctrl+C
+
+---
 * ## [v1.1.0] - 2025-04-30
   > Mejoras.
 

@@ -22,6 +22,7 @@ RESET="\033[0m"
 YELLOW="\033[0;33m"
 RED="\033[0;31m"
 GREEN="\033[0;32m"
+CYAN="\033[0;36m"
 
 # Ubicación del script.
 BASEDIR=$(dirname "$0")
@@ -102,6 +103,13 @@ function show_bye() {
   exit 0
 }
 
+# Manejador de señal para salida limpia con Ctrl+C.
+function handle_interrupt() {
+  echo ""
+  echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')]${RESET} Señal de interrupción recibida..."
+  show_bye
+}
+
 # Comprueba si el usuario que ejecuta el script es el super usuario.
 function check_su() {
   if [[ "$EUID" -ne 0 ]]; then
@@ -155,6 +163,9 @@ function check_help_param() {
 ################################################################################
 # COMPROBACIONES PREVIAS.
 ################################################################################
+
+# Capturar Ctrl+C para salida limpia.
+trap handle_interrupt SIGINT SIGTERM
 
 check_su
 
